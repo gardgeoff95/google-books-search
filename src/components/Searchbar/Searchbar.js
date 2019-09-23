@@ -15,7 +15,7 @@ class Searchbar extends React.Component {
   getInfo = () => {
     axios.get(`${API_URL}${this.state.query}`).then(res => {
       const books = res.data.items;
-      this.setState({results: books});
+      this.setState({ results: books });
     });
   };
   componentDidMount() {
@@ -35,17 +35,19 @@ class Searchbar extends React.Component {
     return (
       <form onSubmit={this.handleSubmit}>
         <input
-          placeholder="Search for..."
+          placeholder="Search for a book!"
           ref={input => (this.search = input)}
           onChange={this.handleInputChange}
         />
         <p>{this.state.query}</p>
-        <button onClick={this.getInfo}>Search</button>
+        <button type="button" className="btn btn-primary" onClick={this.getInfo}>Search</button>
         <ul onChange={this.getInfo}>
           {this.state.results.map(book => (
             <div>
               <li>Title: {book.volumeInfo.title}</li>{" "}
-              <button>Save Book!</button>
+              <button type="button" className="btn btn-primary">
+                Save Book!
+              </button>
               <p>Author('s): {book.volumeInfo.authors[0]}</p>
               <p>Description: {book.volumeInfo.description}</p>
               <a href={book.volumeInfo.infoLink}>
